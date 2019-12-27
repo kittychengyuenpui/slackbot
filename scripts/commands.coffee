@@ -7,6 +7,7 @@
 # Configuration:
 #   HUBOT_WEATHER_API_URL - Optional openweathermap.org API endpoint to use
 #   HUBOT_WEATHER_UNITS - Temperature units to use. 'metric' or 'imperial'
+#   HUBOT_OWM_APIKEY - APIKEY to obtain weather info from OWM API
 #
 # Commands:
 #   hubot hello - Say hello!
@@ -15,7 +16,7 @@
 #	hubot calendar [me] - Print out this month's calendar
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
-process.env.AppId = "";
+
 module.exports = (robot) ->
 	robot.hear /hello/i, (res) ->
 		res.send res.random welcomeMsg
@@ -35,7 +36,7 @@ module.exports = (robot) ->
  module.exports = (robot) ->
    robot.hear /weather in (\w+)/i, (res) ->
      city = res.match[1]
-     query = { units: process.env.HUBOT_WEATHER_UNITS, q: city, appid: process.env.HUBOT_WEATHER_APPID}
+     query = { units: process.env.HUBOT_WEATHER_UNITS, q: city, appid: process.env.HUBOT_OWM_APIKEY}
      url = process.env.HUBOT_WEATHER_API_URL
      res.robot.http(url).query(query).get() (err, res, body) ->
        data = JSON.parse(body)
