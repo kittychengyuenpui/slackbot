@@ -7,6 +7,7 @@
   "dependencies": {
     "child_process": "^1.0.2",
     "hubot": "^3.3.2",
+    "hubot-auth": "^2.1.0",
     "hubot-diagnostics": "^1.0.0",
     "hubot-env": "0.0.2",
     "hubot-google-images": "^0.2.7",
@@ -14,6 +15,7 @@
     "hubot-help": "^1.0.1",
     "hubot-heroku-keepalive": "^1.0.3",
     "hubot-maps": "0.0.3",
+    "hubot-open-weather-map": "0.0.4",
     "hubot-pugme": "^0.1.1",
     "hubot-redis-brain": "^1.0.0",
     "hubot-rules": "^1.0.0",

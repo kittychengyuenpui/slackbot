@@ -8,6 +8,7 @@
 #   HUBOT_WEATHER_API_URL - Optional openweathermap.org API endpoint to use
 #   HUBOT_WEATHER_UNITS - Temperature units to use. 'metric' or 'imperial'
 #   HUBOT_OWM_APIKEY - APIKEY to obtain weather info from OWM API
+#   HUBOT_AUTH_ADMIN - A comma separated list of user IDs
 #
 # Commands:
 #   hubot hello - Say hello!
@@ -25,22 +26,27 @@ module.exports = (robot) ->
 		res.send "https://www.notion.so/dstarling/Click-me-if-you-like-being-informed-b5e1968173684dfd908f4a85c91ef6e7"
 	
 	child_process = require('child_process')
-	robot.respond /calendar( me)?/i, (res) ->
+	robot.respond /calendar( me)?/i, (msg) ->
 		child_process.exec 'cal -h', (error, stdout, stderr) ->
-		res.send(stdout)
-	
-	process.env.HUBOT_WEATHER_API_URL ||=
-   'http://api.openweathermap.org/data/2.5/weather'
- process.env.HUBOT_WEATHER_UNITS ||= 'imperial'
+		msg.send stdout
+   
  
  module.exports = (robot) ->
-   robot.hear /weather in (\w+)/i, (res) ->
-     city = res.match[1]
-     query = { units: process.env.HUBOT_WEATHER_UNITS, q: city, appid: process.env.HUBOT_OWM_APIKEY}
-     url = process.env.HUBOT_WEATHER_API_URL
-     res.robot.http(url).query(query).get() (err, res, body) ->
-       data = JSON.parse(body)
-       weather = [ "#{Math.round(data.main.temp)} degrees" ]
-       for w in data.weather
-         weather.push w.description
-       res.reply "It's #{weather.join(', ')} in #{data.name}, #{data.sys.country}"
+	robot.hear /weather in (.*)/i, (msg) ->
+		city = msg.match[1]
+		url = 'http://api.openweathermap.org/data/2.5/weather?q='
+		units = 'metric'
+		apiKey = '5a4bf46269c387d2d639f0a7a960b3f1'
+		named_unit = switch
+				when units == "metric" then "°C"
+				when units == "imperial" then "°F"
+				else  "K"
+		msg.http(url + city + "&appid=" + apiKey + "&units=" + units).get() (err, res, body) ->
+			if err
+				res.send "Encountered an error :( #{err}"
+				return
+			data = JSON.parse(body)
+			weather = [ "#{Math.round(data.main.temp)}#{named_unit}, Humidity: #{data.main.humidity}%, Wind: #{data.wind.speed}m/s" ]
+			for w in data.weather
+				weather.push w.description
+			msg.reply "It's #{weather.join(', ')} in #{data.name}, #{data.sys.country}"

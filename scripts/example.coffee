@@ -77,10 +77,10 @@ module.exports = (robot) ->
     res.send 'OK'
 
   robot.error (err, res) ->
-    robot.logger.error "DOES NOT COMPUTE"
+    robot.logger.error "DOES NOT COMPUTE 1"
  
     if res?
-      res.reply "DOES NOT COMPUTE"
+      res.reply err
   
   robot.respond /have a soda/i, (res) ->
     # Get number of sodas had (coerced to a number).
