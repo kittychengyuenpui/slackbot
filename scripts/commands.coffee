@@ -9,32 +9,42 @@
 #   HUBOT_WEATHER_UNITS - Temperature units to use. 'metric' or 'imperial'
 #   HUBOT_OWM_APIKEY - APIKEY to obtain weather info from OWM API
 #   HUBOT_AUTH_ADMIN - A comma separated list of user IDs
+#	HUBOT_NEW_MEMBERS_URL - A link for new members
+#   HUBOT_ADVICE_API_URL - adviceslip JSON API endpoint
 #
 # Commands:
 #   hubot hello - Say hello!
 #   hubot !new members - link to procedure for new members.
 #   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
-#	hubot calendar [me] - Print out this month's calendar
+#   hubot what should I do about <something> / what do you do when <something> / what do you think about <something> / how do you handle (something) / I want some advice about <something> - Get advice about <something>
+#   hubot advice [me] <something> - Get random advice
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
 
+getAdvice = (msg, query) ->
+	msg.http(process.env.HUBOT_ADVICE_API_URL + "/search/#{query}").get() (err, res, body) ->
+		if err
+			msg.send "Encountered an error :( #{err}"
+			return
+		results = JSON.parse body
+		if results.message? then randomAdvice(msg) else msg.send(msg.random(results.slips).advice)
+
+randomAdvice = (msg) ->
+	msg.http(process.env.HUBOT_ADVICE_API_URL).get() (err, res, body) ->
+		if err
+			msg.send "Encountered an error :( #{err}"
+			return
+		results = JSON.parse body
+		advice = if err then "Encountered an error :( #{err}" else results.slip.advice
+		msg.send advice
+			
 module.exports = (robot) ->
 	robot.hear /hello/i, (res) ->
 		res.send res.random welcomeMsg
 		
 	robot.hear /!new members/i, (res) ->
-		res.send "https://www.notion.so/dstarling/Click-me-if-you-like-being-informed-b5e1968173684dfd908f4a85c91ef6e7"
-	
-	child_process = require('child_process')
-	robot.respond /calendar( me)?/i, (msg) ->
-		child_process.exec 'cal', (error, stdout, stderr) ->
-			if error
-				msg.send stderr
-				return
-			msg.send(stdout)
+		res.send process.env.HUBOT_NEW_MEMBERS_URL
    
- 
- module.exports = (robot) ->
 	robot.hear /weather in (.*)/i, (msg) ->
 		city = msg.match[1]
 		url = process.env.HUBOT_WEATHER_API_URL
@@ -53,3 +63,18 @@ module.exports = (robot) ->
 			for w in data.weather
 				weather.push w.description
 			msg.reply "It's #{weather.join(', ')} in #{data.name}, #{data.sys.country}"
+	
+	robot.respond /what (do you|should I) do (when|about) (.*)/i, (msg) ->
+		getAdvice msg, msg.match[3]
+
+	robot.respond /how do you handle (.*)/i, (msg) ->
+		getAdvice msg, msg.match[1]
+
+	robot.respond /(.*) some advice about (.*)/i, (msg) ->
+		getAdvice msg, msg.match[2]
+
+	robot.respond /(.*) think about (.*)/i, (msg) ->
+		getAdvice msg, msg.match[2]
+
+	robot.respond /advice( me)? (.*)/i, (msg) ->
+		randomAdvice(msg)
