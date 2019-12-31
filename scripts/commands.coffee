@@ -28,7 +28,7 @@ module.exports = (robot) ->
 	child_process = require('child_process')
 	robot.respond /calendar( me)?/i, (msg) ->
 		child_process.exec 'cal -h', (error, stdout, stderr) ->
-		msg.send stdout
+			msg.send(stdout)
    
  
  module.exports = (robot) ->
