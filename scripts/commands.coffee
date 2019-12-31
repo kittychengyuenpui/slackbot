@@ -59,7 +59,7 @@ module.exports = (robot) ->
 				else  "K"
 		msg.http(url + city + "&appid=" + apiKey + "&units=" + units).get() (err, res, body) ->
 			if err
-				res.send "Encountered an error :( #{err}"
+				msg.send "Encountered an error :( #{err}"
 				return
 			data = JSON.parse(body)
 			weather = [ "#{Math.round(data.main.temp)}#{named_unit}, humidity: #{data.main.humidity}%, wind: #{data.wind.speed}m/s" ]
@@ -87,4 +87,4 @@ module.exports = (robot) ->
 				return
 			results = JSON.parse(body)
 			advice = results.slip.advice
-			msg.send advice
+			msg.send "#{advice}, from #{url}"
