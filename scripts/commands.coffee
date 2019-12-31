@@ -16,7 +16,7 @@
 #   hubot hello - Say hello!
 #   hubot !new members - link to procedure for new members.
 #   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
-#   hubot what should I do about <something> / what do you do when <something> / what do you think about <something> / how do you handle (something) / I want some advice about <something> - Get advice about <something>
+#   hubot what should I do about <something> / what do you do when <something> / what do you think about <something> / how do you handle <something> / I want some advice about <something> - Get advice about <something>
 #   hubot advice [me] - Get random advice
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
@@ -80,4 +80,10 @@ module.exports = (robot) ->
 		getAdvice msg, msg.match[2]
 
 	robot.respond /advice( me)?/i, (msg) ->
-		randomAdvice(msg)
+		msg.http(process.env.HUBOT_ADVICE_API_URL).get() (err, res, body) ->
+			if err
+				msg.send "Encountered an error :( #{err}"
+				return
+			results = JSON.parse(body)
+			advice = results.slip.advice
+			msg.send advice
