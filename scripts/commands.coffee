@@ -46,7 +46,7 @@ module.exports = (robot) ->
 				weather.push w.description
 			msg.reply "It's #{weather.join(', ')} in #{data.name}, #{data.sys.country}"
 	
-	robot.respond /advice/i, (msg) ->
+	robot.hear /advice/i, (msg) ->
 		url2 = process.env.HUBOT_ADVICE_API_URL
 		msg.http(url2).get() (err, res, body) ->
 			if err
