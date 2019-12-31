@@ -22,7 +22,8 @@
     "hubot-scripts": "^2.17.2",
     "hubot-shipit": "^0.2.1",
     "hubot-slack": "^4.7.1",
-    "minimatch": "^3.0.4"
+    "minimatch": "^3.0.4",
+	"hubot-calculator": ">= 0.4.0"
   },
   "engines": {
     "node": "4.x"

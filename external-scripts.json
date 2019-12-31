@@ -10,5 +10,6 @@
   "hubot-rules",
   "hubot-shipit",
   "hubot-env",
-  "hubot-auth"
+  "hubot-auth",
+  "hubot-calculator"
 ]

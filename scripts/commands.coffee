@@ -13,7 +13,7 @@
 # Commands:
 #   hubot hello - Say hello!
 #   hubot !new members - link to procedure for new members.
-#   hubot weather in <location> - Tells about the weather in given location
+#   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
 #	hubot calendar [me] - Print out this month's calendar
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
