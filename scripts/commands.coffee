@@ -34,9 +34,9 @@ module.exports = (robot) ->
  module.exports = (robot) ->
 	robot.hear /weather in (.*)/i, (msg) ->
 		city = msg.match[1]
-		url = 'http://api.openweathermap.org/data/2.5/weather?q='
-		units = 'metric'
-		apiKey = '5a4bf46269c387d2d639f0a7a960b3f1'
+		url = process.env.HUBOT_WEATHER_API_URL
+		units = process.env.HUBOT_WEATHER_UNITS
+		apiKey = process.env.HUBOT_OWM_APIKEY
 		named_unit = switch
 				when units == "metric" then "°C"
 				when units == "imperial" then "°F"
@@ -46,7 +46,7 @@ module.exports = (robot) ->
 				res.send "Encountered an error :( #{err}"
 				return
 			data = JSON.parse(body)
-			weather = [ "#{Math.round(data.main.temp)}#{named_unit}, Humidity: #{data.main.humidity}%, Wind: #{data.wind.speed}m/s" ]
+			weather = [ "#{Math.round(data.main.temp)}#{named_unit}, humidity: #{data.main.humidity}%, wind: #{data.wind.speed}m/s" ]
 			for w in data.weather
 				weather.push w.description
 			msg.reply "It's #{weather.join(', ')} in #{data.name}, #{data.sys.country}"
