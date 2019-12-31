@@ -87,4 +87,4 @@ module.exports = (robot) ->
 				return
 			results = JSON.parse(body)
 			advice = results.slip.advice
-			msg.send "#{advice}, from #{url}"
+			msg.send "#{results}, from #{url}"
