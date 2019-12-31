@@ -14,8 +14,9 @@
 #
 # Commands:
 #   hubot hello - Say hello!
-#   hubot !new members - link to procedure for new members.
+#   hubot !new members - Get a link of procedure for new members.
 #   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
+#   hubot advice - Gets random advice 
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
 			
@@ -52,4 +53,4 @@ module.exports = (robot) ->
 				msg.send "Encountered an error :( #{err}"
 				return
 			data = JSON.parse(body)
-			msg.send data.slip.advice
+			msg.send url2
