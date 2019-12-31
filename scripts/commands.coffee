@@ -10,13 +10,11 @@
 #   HUBOT_OWM_APIKEY - APIKEY to obtain weather info from OWM API
 #   HUBOT_AUTH_ADMIN - A comma separated list of user IDs
 #	HUBOT_NEW_MEMBERS_URL - A link for new members
-#   HUBOT_ADVICE_API_URL - adviceslip JSON API endpoint
 #
 # Commands:
 #   hubot hello - Say hello!
 #   hubot !new members - Get a link of procedure for new members.
-#   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
-#   hubot advice - Gets random advice 
+#   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location 
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
 			
@@ -46,11 +44,3 @@ module.exports = (robot) ->
 				weather.push w.description
 			msg.reply "It's #{weather.join(', ')} in #{data.name}, #{data.sys.country}"
 	
-	robot.hear /advice/i, (msg) ->
-		url2 = process.env.HUBOT_ADVICE_API_URL
-		msg.http(url2).get() (err, res, body) ->
-			if err
-				msg.send "Encountered an error :( #{err}"
-				return
-			data = JSON.parse(body)
-			msg.send url2

@@ -8,6 +8,7 @@
     "child_process": "^1.0.2",
     "hubot": "^3.3.2",
     "hubot-auth": "^2.1.0",
+    "hubot-calculator": ">= 0.4.0",
     "hubot-diagnostics": "^1.0.0",
     "hubot-env": "0.0.2",
     "hubot-google-images": "^0.2.7",
@@ -23,7 +24,7 @@
     "hubot-shipit": "^0.2.1",
     "hubot-slack": "^4.7.1",
     "minimatch": "^3.0.4",
-	"hubot-calculator": ">= 0.4.0"
+    "underscore": "^1.9.1"
   },
   "engines": {
     "node": "4.x"
