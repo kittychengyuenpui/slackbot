@@ -17,7 +17,7 @@
 #   hubot !new members - link to procedure for new members.
 #   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
 #   hubot what should I do about <something> / what do you do when <something> / what do you think about <something> / how do you handle (something) / I want some advice about <something> - Get advice about <something>
-#   hubot advice [me] <something> - Get random advice
+#   hubot advice [me] - Get random advice
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
 
@@ -26,16 +26,19 @@ getAdvice = (msg, query) ->
 		if err
 			msg.send "Encountered an error :( #{err}"
 			return
-		results = JSON.parse body
-		if results.message? then randomAdvice(msg) else msg.send(msg.random(results.slips).advice)
+		results = JSON.parse(body)
+		if results.message? 
+			randomAdvice(msg) 
+		else 
+			msg.send(msg.random(results.slips).advice)
 
 randomAdvice = (msg) ->
 	msg.http(process.env.HUBOT_ADVICE_API_URL).get() (err, res, body) ->
 		if err
 			msg.send "Encountered an error :( #{err}"
 			return
-		results = JSON.parse body
-		advice = if err then "Encountered an error :( #{err}" else results.slip.advice
+		results = JSON.parse(body)
+		advice = results.slip.advice
 		msg.send advice
 			
 module.exports = (robot) ->
@@ -76,5 +79,5 @@ module.exports = (robot) ->
 	robot.respond /(.*) think about (.*)/i, (msg) ->
 		getAdvice msg, msg.match[2]
 
-	robot.respond /advice( me)? (.*)/i, (msg) ->
+	robot.respond /advice( me)?/i, (msg) ->
 		randomAdvice(msg)
