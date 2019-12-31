@@ -80,7 +80,8 @@ module.exports = (robot) ->
 		getAdvice msg, msg.match[2]
 
 	robot.respond /advice( me)?/i, (msg) ->
-		msg.http(process.env.HUBOT_ADVICE_API_URL).get() (err, res, body) ->
+		url = process.env.HUBOT_ADVICE_API_URL
+		msg.http(url).get() (err, res, body) ->
 			if err
 				msg.send "Encountered an error :( #{err}"
 				return
