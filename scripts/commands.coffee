@@ -16,30 +16,8 @@
 #   hubot hello - Say hello!
 #   hubot !new members - link to procedure for new members.
 #   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
-#   hubot what should I do about <something> / what do you do when <something> / what do you think about <something> / how do you handle <something> / I want some advice about <something> - Get advice about <something>
-#   hubot advice - Get random advice
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
-
-getAdvice = (msg, query) ->
-	msg.http(process.env.HUBOT_ADVICE_API_URL + "/search/#{query}").get() (err, res, body) ->
-		if err
-			msg.send "Encountered an error :( #{err}"
-			return
-		results = JSON.parse(body)
-		if results.message? 
-			randomAdvice(msg) 
-		else 
-			msg.send(msg.random(results.slips).advice)
-
-randomAdvice = (msg) ->
-	msg.http(process.env.HUBOT_ADVICE_API_URL).get() (err, res, body) ->
-		if err
-			msg.send "Encountered an error :( #{err}"
-			return
-		results = JSON.parse(body)
-		advice = results.slip.advice
-		msg.send advice
 			
 module.exports = (robot) ->
 	robot.hear /hello/i, (res) ->
@@ -67,24 +45,11 @@ module.exports = (robot) ->
 				weather.push w.description
 			msg.reply "It's #{weather.join(', ')} in #{data.name}, #{data.sys.country}"
 	
-	robot.respond /what (do you|should I) do (when|about) (.*)/i, (msg) ->
-		getAdvice msg, msg.match[3]
-
-	robot.respond /how do you handle (.*)/i, (msg) ->
-		getAdvice msg, msg.match[1]
-
-	robot.respond /(.*) some advice about (.*)/i, (msg) ->
-		getAdvice msg, msg.match[2]
-
-	robot.respond /(.*) think about (.*)/i, (msg) ->
-		getAdvice msg, msg.match[2]
-
 	robot.respond /advice/i, (msg) ->
-		url = process.env.HUBOT_ADVICE_API_URL
-		msg.http(url).get() (err, res, body) ->
+		url2 = process.env.HUBOT_ADVICE_API_URL
+		msg.http(url2).get() (err, res, body) ->
 			if err
 				msg.send "Encountered an error :( #{err}"
 				return
-			results = JSON.parse(body)
-			advice = results.slip.advice
-			msg.send "#{results}, from #{url}"
+			data = JSON.parse(body)
+			msg.send data.slip.advice
