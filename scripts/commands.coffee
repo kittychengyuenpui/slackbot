@@ -75,7 +75,7 @@ module.exports = (robot) ->
 			if err
 				msg.send "Encountered an error :( #{err}"
 				return
-			results = body._text
+			results = body
 			advice = if err then "You're on your own, bud" else results
 			msg.send advice
 	
