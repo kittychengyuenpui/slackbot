@@ -77,7 +77,7 @@ module.exports = (robot) ->
     res.send 'OK'
 
   robot.error (err, res) ->
-    robot.logger.error "DOES NOT COMPUTE 1"
+    robot.logger.error "DOES NOT COMPUTE: #{err}"
  
     if res?
       res.reply err

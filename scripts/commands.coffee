@@ -10,6 +10,7 @@
 #   HUBOT_OWM_APIKEY - APIKEY to obtain weather info from OWM API
 #   HUBOT_AUTH_ADMIN - A comma separated list of user IDs
 #	HUBOT_NEW_MEMBERS_URL - A link for new members
+#   HUBOT_ADVICE_API_URL - API endpoint to get advice
 #
 # Commands:
 #   hubot hello - Say hello!
