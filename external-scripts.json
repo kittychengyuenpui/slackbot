@@ -12,6 +12,5 @@
   "hubot-env",
   "hubot-auth",
   "hubot-calculator",
-  "hubot-ascii-art",
-  "hubot-scripts"
+  "hubot-ascii-art"
 ]
