@@ -70,12 +70,5 @@ module.exports = (robot) ->
 		getAdvice msg, msg.match[2]
 
 	robot.respond /(.*) advice/i, (msg) ->
-		url2 = process.env.HUBOT_ADVICE_API_URL
-		msg.http(url2).get() (err, res, body) ->
-			if err
-				msg.send "Encountered an error :( #{err}"
-				return
-			results = body
-			advice = if err then "You're on your own, bud" else results
-			msg.send advice
+		randomAdvice msg
 	
