@@ -17,6 +17,18 @@
 #   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location 
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
+getAdvice = (msg, query) ->
+	url2 = process.env.HUBOT_ADVICE_API_URL
+	msg.http(url2 + "/search/#{query}").get() (err, res, body) ->
+		results = JSON.parse body
+		if results.message? then randomAdvice(msg) else msg.send(msg.random(results.slips).advice)
+
+randomAdvice = (msg) ->
+	url2 = process.env.HUBOT_ADVICE_API_URL
+	msg.http(url2).get() (err, res, body) ->
+		results = JSON.parse body
+		advice = if err then "You're on your own, bud" else results.slip.advice
+		msg.send advice
 			
 module.exports = (robot) ->
 	robot.hear /hello/i, (res) ->
@@ -43,4 +55,19 @@ module.exports = (robot) ->
 			for w in data.weather
 				weather.push w.description
 			msg.reply "It's #{weather.join(', ')} in #{data.name}, #{data.sys.country}"
+			
+	robot.respond /what (do you|should I) do (when|about) (.*)/i, (msg) ->
+		getAdvice msg, msg.match[3]
+
+	robot.respond /how do you handle (.*)/i, (msg) ->
+		getAdvice msg, msg.match[1]
+
+	robot.respond /(.*) some advice about (.*)/i, (msg) ->
+		getAdvice msg, msg.match[2]
+
+	robot.respond /(.*) think about (.*)/i, (msg) ->
+		getAdvice msg, msg.match[2]
+
+	robot.respond /(.*) advice$/i, (msg) ->
+		randomAdvice(msg)
 	
