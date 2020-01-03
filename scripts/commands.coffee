@@ -15,7 +15,9 @@
 # Commands:
 #   hubot hello - Say hello!
 #   hubot !new members - Get a link of procedure for new members.
-#   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location 
+#   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
+#   hubot what should I do about <something> / what do you think about <something> / how do you handle <something> - Get advice about <something>
+#   hubot advice - Get random advice 
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
 getAdvice = (msg, query) ->
@@ -69,6 +71,6 @@ module.exports = (robot) ->
 	robot.respond /(.*) think about (.*)/i, (msg) ->
 		getAdvice msg, msg.match[2]
 
-	robot.respond /(.*) advice/i, (msg) ->
+	robot.respond /advice/i, (msg) ->
 		randomAdvice msg
 	
