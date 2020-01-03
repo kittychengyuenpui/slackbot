@@ -75,7 +75,7 @@ module.exports = (robot) ->
 			if err
 				msg.send "Encountered an error :( #{err}"
 				return
-			results = JSON.parse(body)
+			results = body
 			advice = if err then "You're on your own, bud" else results.slip.advice
 			msg.send advice
 	
