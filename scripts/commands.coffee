@@ -75,27 +75,27 @@ module.exports = (robot) ->
 		randomAdvice msg
 	
 	robot.respond /(abs|abstract) (.*)/i, (res) ->
-	url3 = process.env.HUBOT_ABSTRACT_API_URL
-    abstract_url = url3 + "#{encodeURIComponent(res.match[1])}"
-    res.http(abstract_url).header('User-Agent', 'Hubot Abstract Script').get() (err, _, body) ->
-        if err then
-			res.send "Sorry, the tubes are broken." 
-			return 
-        data = JSON.parse(body.toString("utf8"))
-        unless data?
-			if data.RelatedTopics and data.RelatedTopics.length then
-				topic = data.RelatedTopics[0] 
-			if data.AbstractText then
-				res.send data.AbstractText
-				if data.AbstractURL then
-					res.send data.AbstractURL 
-			else if topic and not /\/c\//.test(topic.FirstURL) then
-				res.send topic.Text
-				res.send topic.FirstURL
-			else if data.Definition then
-				res.send data.Definition
-				if data.DefinitionURL
-					res.send data.DefinitionURL 
-			else
-				res.send "I don't know anything about that."
-		return
+		url3 = process.env.HUBOT_ABSTRACT_API_URL
+		abstract_url = url3 + "#{encodeURIComponent(res.match[1])}"
+		res.http(abstract_url).header('User-Agent', 'Hubot Abstract Script').get() (err, _, body) ->
+			if err then
+				res.send "Sorry, the tubes are broken." 
+				return 
+			data = JSON.parse(body.toString("utf8"))
+			unless data?
+				if data.RelatedTopics and data.RelatedTopics.length then
+					topic = data.RelatedTopics[0] 
+				if data.AbstractText then
+					res.send data.AbstractText
+					if data.AbstractURL then
+						res.send data.AbstractURL 
+				else if topic and not /\/c\//.test(topic.FirstURL) then
+					res.send topic.Text
+					res.send topic.FirstURL
+				else if data.Definition then
+					res.send data.Definition
+					if data.DefinitionURL
+						res.send data.DefinitionURL 
+				else
+					res.send "I don't know anything about that."
+			return
