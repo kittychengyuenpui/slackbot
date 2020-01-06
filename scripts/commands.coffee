@@ -108,6 +108,6 @@ module.exports = (robot) ->
 	robot.respond /(calc|calculate|calculator|convert|math|maths)( me)? (.*)/i, (msg) ->
 		try
 			result = mathjs.evaluate msg.match[3]
-			msg.send "#{result}"
+			msg.send "#{mathjs.round(result, 3)} (correct to 3 significant figures)"
 		catch error
 			msg.send error.message || 'Could not compute.'
