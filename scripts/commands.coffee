@@ -81,7 +81,9 @@ module.exports = (robot) ->
 			if err
 				res.send "Sorry, the tubes are broken." 
 				return 
-			data = JSON.parse(body) 
+			data = JSON.parse(body)
+			unless data?
+				res.send "I don't know anything about that."
 			if data.AbstractText
 				res.send data.AbstractText
 				if data.AbstractURL
