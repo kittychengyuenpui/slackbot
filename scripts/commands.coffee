@@ -97,4 +97,5 @@ module.exports = (robot) ->
 				if data.DefinitionURL
 					res.send data.DefinitionURL 
 			else
-			  res.send "I don't know anything about that."
+				res.send "I don't know anything about that."
+		return
