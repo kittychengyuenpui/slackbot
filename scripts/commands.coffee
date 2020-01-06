@@ -137,4 +137,5 @@ module.exports = (robot) ->
 				fromRate = msg.match[2]
 				toRate = msg.match[3]
 				resultRate = 1 / data.rates.fromRate * data.rates.toRate
+				msg.send data.rates.fromRate
 				msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
