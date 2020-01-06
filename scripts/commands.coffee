@@ -130,4 +130,11 @@ module.exports = (robot) ->
 				msg.send "Encountered an error :( #{err}"
 				return
 			data = JSON.parse(body)
-			msg.reply "#{msg.match[2]} to  #{msg.match[3]} return: #{data}"
+			if msg.match[2] == data.base
+				toRate = msg.match[3]
+				msg.send "#{data.rates.toRate}"
+			else
+				fromRate = msg.match[2]
+				toRate = msg.match[3]
+				resultRate = 1 / data.rates.fromRate * data.rates.toRate
+				msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
