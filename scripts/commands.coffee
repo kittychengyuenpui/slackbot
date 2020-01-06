@@ -121,3 +121,14 @@ module.exports = (robot) ->
 			msg.send "#{result}"
 		catch error
 			msg.send error.message || 'Could not compute.'
+			
+	robot.respond /convert (cur|currency) (.*) to (.*)/i, (msg) ->
+		url4 = process.env.HUBOT_CURRENCY_API_URL
+		apiKey = process.env.HUBOT_CURRENCY_API_KEY
+		abstract_url = url3 + res.match[2]
+		msg.http(url4 + apiKey).get() (err, res, body) ->
+			if err
+				msg.send "Encountered an error :( #{err}"
+				return
+			data = JSON.parse(body)
+			msg.reply "#{msg.match[1]} to  #{msg.match[2]} return: #{data}"
