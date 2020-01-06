@@ -71,6 +71,6 @@ module.exports = (robot) ->
 	robot.respond /(.*) think about (.*)/i, (msg) ->
 		getAdvice msg, msg.match[2]
 
-	robot.respond /(.*) advice/i, (msg) ->
+	robot.respond /advice/i, (msg) ->
 		randomAdvice msg
 	
