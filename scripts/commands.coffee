@@ -11,13 +11,15 @@
 #   HUBOT_AUTH_ADMIN - A comma separated list of user IDs
 #	HUBOT_NEW_MEMBERS_URL - A link for new members
 #   HUBOT_ADVICE_API_URL - API endpoint to get advice
+#   HUBOT_ABSTRACT_API_URL - API endpoint of DuckDuckGo internet search engine to search abstract
 #
 # Commands:
 #   hubot hello - Say hello!
 #   hubot !new members - Get a link of procedure for new members.
 #   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
-#   hubot what should I do about <something> / what do you think about <something> / how do you handle <something> - Get advice about <something>
-#   hubot advice - Get random advice 
+#   hubot what should I do about <something> | what do you think about <something> | how do you handle <something> - Get advice about <something>
+#   hubot advice - Get random advice
+#   hubot abs | abstract - Prints a nice abstract of the given topic 
 
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
 getAdvice = (msg, query) ->
