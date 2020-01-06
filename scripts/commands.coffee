@@ -122,7 +122,7 @@ module.exports = (robot) ->
 		catch error
 			msg.send error.message || 'Could not compute.'
 			
-	robot.respond /convert (cur|currency) (.*) to (.*)/i, (msg) ->
+	robot.respond /(cur|currency) (.*) to (.*)/i, (msg) ->
 		url4 = process.env.HUBOT_CURRENCY_API_URL
 		apiKey = process.env.HUBOT_CURRENCY_API_KEY
 		msg.http(url4 + apiKey).get() (err, res, body) ->
@@ -131,7 +131,7 @@ module.exports = (robot) ->
 				return
 			data = JSON.parse(body)
 			if msg.match[2] == data.base
-				toRate = Object.keys(msg.match[3])
+				toRate = msg.match[3]
 				msg.send data['rates'][toRate]
 			else
 				fromRate = msg.match[2]
