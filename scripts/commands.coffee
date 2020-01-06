@@ -20,7 +20,7 @@
 #   hubot what should I do about <something> | what do you think about <something> | how do you handle <something> - Get advice about <something>
 #   hubot advice - Get random advice
 #   hubot abs | abstract - Prints a nice abstract of the given topic
-#   hubot calc|calculate|calculator|convert|math|maths [me] <expression> - Calculate the given math expression.
+#   hubot calc|calculate|calculator|math|maths [me] <expression> - Calculate the given math expression.
 #   hubot convert <expression> in <units> - Convert expression to given units.
  
 mathjs = require("mathjs")
@@ -105,9 +105,16 @@ module.exports = (robot) ->
 			else
 				res.send "I don't know anything about that."
 
-	robot.respond /(calc|calculate|calculator|convert|math|maths)( me)? (.*)/i, (msg) ->
+	robot.respond /(calc|calculate|calculator|math|maths)( me)? (.*)/i, (msg) ->
 		try
 			result = mathjs.evaluate msg.match[3]
 			msg.send "#{mathjs.round(result, 3)} (correct to 3 significant figures)"
+		catch error
+			msg.send error.message || 'Could not compute.'
+	
+	robot.respond /convert (.*) in (.*)/i, (msg) ->
+		try
+			result = mathjs.to(msg.match[2], msg.match[4])
+			msg.send "#{result}"
 		catch error
 			msg.send error.message || 'Could not compute.'
