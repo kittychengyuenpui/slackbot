@@ -19,8 +19,11 @@
 #   hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
 #   hubot what should I do about <something> | what do you think about <something> | how do you handle <something> - Get advice about <something>
 #   hubot advice - Get random advice
-#   hubot abs | abstract - Prints a nice abstract of the given topic 
-
+#   hubot abs | abstract - Prints a nice abstract of the given topic
+#   hubot calc|calculate|calculator|convert|math|maths [me] <expression> - Calculate the given math expression.
+#   hubot convert <expression> in <units> - Convert expression to given units.
+ 
+mathjs = require("mathjs")
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
 getAdvice = (msg, query) ->
 	url2 = process.env.HUBOT_ADVICE_API_URL
@@ -41,7 +44,7 @@ module.exports = (robot) ->
 		
 	robot.hear /!new members/i, (res) ->
 		res.send process.env.HUBOT_NEW_MEMBERS_URL
-   
+	
 	robot.hear /weather in (.*)/i, (msg) ->
 		city = msg.match[1]
 		url = process.env.HUBOT_WEATHER_API_URL
@@ -101,3 +104,10 @@ module.exports = (robot) ->
 					res.send data.DefinitionURL 
 			else
 				res.send "I don't know anything about that."
+
+	robot.respond /(calc|calculate|calculator|convert|math|maths)( me)? (.*)/i, (msg) ->
+		try
+			result = mathjs.evaluate msg.match[3]
+			msg.send "#{result}"
+		catch error
+			msg.send error.message || 'Could not compute.'
