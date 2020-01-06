@@ -117,4 +117,4 @@ module.exports = (robot) ->
 			result = mathjs.to(msg.match[1], msg.match[2])
 			msg.send "#{result}"
 		catch error
-			msg.send msg.match[1]
+			msg.send error.message || 'Could not compute.'
