@@ -10,8 +10,10 @@
 #   HUBOT_OWM_APIKEY - APIKEY to obtain weather info from OWM API
 #   HUBOT_AUTH_ADMIN - A comma separated list of user IDs
 #	HUBOT_NEW_MEMBERS_URL - A link for new members
-#   HUBOT_ADVICE_API_URL - API endpoint to get advice
+#   HUBOT_ADVICE_API_URL - API endpoint of Advice Slip
 #   HUBOT_ABSTRACT_API_URL - API endpoint of DuckDuckGo internet search engine to search abstract
+#   HUBOT_CURRENCY_API_KEY - API key to obtain currency rate from Fixer API
+#   HUBOT_CURRENCY_API_URL - API endpoint of Fixer
 #
 # Commands:
 #   hubot hello - Say hello!
@@ -22,6 +24,7 @@
 #   hubot abs | abstract - Prints a nice abstract of the given topic
 #   hubot calc|calculate|calculator|math|maths [me] <expression> - Calculate the given math expression.
 #   hubot convert <expression> in <units> - Convert expression to given units.
+#   hubot cur | currency <currency 1> to <currency 2> - Get latest currency exchange rate from currency 1 to currency 2 (currency 1 as base)
  
 mathjs = require("mathjs")
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
@@ -134,7 +137,7 @@ module.exports = (robot) ->
 			index = base.localeCompare msg.match[2]
 			if  index == 0
 				toRate = msg.match[3]
-				msg.send "#{data['rates'][toRate]}"
+				msg.send "1 #{msg.match[2]} :  #{data['rates'][toRate]} #{msg.match[3]}"
 			else
 				fromRate = msg.match[2]
 				toRate = msg.match[3]
