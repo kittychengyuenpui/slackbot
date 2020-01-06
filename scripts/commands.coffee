@@ -78,21 +78,21 @@ module.exports = (robot) ->
 		url3 = process.env.HUBOT_ABSTRACT_API_URL
 		abstract_url = url3 + "#{encodeURIComponent(res.match[1])}"
 		res.http(abstract_url).header('User-Agent', 'Hubot Abstract Script').get() (err, _, body) ->
-			if err then
+			if err
 				res.send "Sorry, the tubes are broken." 
 				return 
 			data = JSON.parse(body.toString("utf8"))
 			unless data?
-				if data.RelatedTopics and data.RelatedTopics.length then
+				if data.RelatedTopics and data.RelatedTopics.length
 					topic = data.RelatedTopics[0] 
-				if data.AbstractText then
+				if data.AbstractText
 					res.send data.AbstractText
-					if data.AbstractURL then
+					if data.AbstractURL
 						res.send data.AbstractURL 
-				else if topic and not /\/c\//.test(topic.FirstURL) then
+				else if topic and not /\/c\//.test(topic.FirstURL)
 					res.send topic.Text
 					res.send topic.FirstURL
-				else if data.Definition then
+				else if data.Definition
 					res.send data.Definition
 					if data.DefinitionURL
 						res.send data.DefinitionURL 
