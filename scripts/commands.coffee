@@ -130,4 +130,4 @@ module.exports = (robot) ->
 				msg.send "Encountered an error :( #{err}"
 				return
 			data = JSON.parse(body)
-			msg.reply "#{msg.match[1]} to  #{msg.match[2]} return: #{data}"
+			msg.reply "#{msg.match[2]} to  #{msg.match[3]} return: #{data}"
