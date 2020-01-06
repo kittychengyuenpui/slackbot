@@ -76,7 +76,7 @@ module.exports = (robot) ->
 	
 	robot.respond /(abs|abstract) (.*)/i, (res) ->
 		url3 = process.env.HUBOT_ABSTRACT_API_URL
-		abstract_url = url3 + "#{encodeURIComponent(res.match[1])}"
+		abstract_url = url3 + res.match[1]
 		res.http(abstract_url).header('User-Agent', 'Hubot Abstract Script').get() (err, _, body) ->
 			if err
 				res.send "Sorry, the tubes are broken." 
