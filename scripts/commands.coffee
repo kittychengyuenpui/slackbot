@@ -81,17 +81,17 @@ module.exports = (robot) ->
 			if err
 				res.send "Sorry, the tubes are broken." 
 				return 
-			data = JSON.parse(body.toString("utf8"))
-			unless data?
-				if data.RelatedTopics and data.RelatedTopics.length
-					topic = data.RelatedTopics[0] 
+			data = JSON.parse(body)
+			unless data? 
 				if data.AbstractText
 					res.send data.AbstractText
 					if data.AbstractURL
 						res.send data.AbstractURL 
-				else if topic and not /\/c\//.test(topic.FirstURL)
-					res.send topic.Text
-					res.send topic.FirstURL
+				else if data.RelatedTopics and data.RelatedTopics.length
+					topic = data.RelatedTopics[0]
+					if topic and not /\/c\//.test(topic.FirstURL)
+						res.send topic.Text
+						res.send topic.FirstURL
 				else if data.Definition
 					res.send data.Definition
 					if data.DefinitionURL
