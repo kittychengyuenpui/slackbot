@@ -134,10 +134,9 @@ module.exports = (robot) ->
 			index = base.localeCompare msg.match[2]
 			if  index == 0
 				toRate = msg.match[3]
-				msg.send data['rates'][toRate]
+				msg.send "#{data['rates'][toRate]}"
 			else
 				fromRate = msg.match[2]
 				toRate = msg.match[3]
 				resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
-				msg.send data['rates'][fromRate]
 				msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
