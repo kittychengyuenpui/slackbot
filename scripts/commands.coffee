@@ -144,7 +144,9 @@ module.exports = (robot) ->
 			else
 				fromRate = msg.match[2]
 				toRate = msg.match[3]
-				if !data['rates'][fromRate] || !data['rates'][toRate]
+				if !data['rates'][fromRate]
+					msg.send "No such currency: #{fromRate}"
+				else if !data['rates'][toRate]
 					msg.send "No such currency: #{toRate}"
 				else
 					resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
