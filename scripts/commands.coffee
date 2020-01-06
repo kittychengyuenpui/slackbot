@@ -137,9 +137,15 @@ module.exports = (robot) ->
 			index = base.localeCompare msg.match[2]
 			if  index == 0
 				toRate = msg.match[3]
-				msg.send "1 #{msg.match[2]} :  #{data['rates'][toRate]} #{msg.match[3]}"
+				if !data['rates'][toRate]
+					msg.send "No such currency: #{toRate}"
+				else
+					msg.send "1 #{msg.match[2]} :  #{data['rates'][toRate]} #{msg.match[3]}"
 			else
 				fromRate = msg.match[2]
 				toRate = msg.match[3]
-				resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
-				msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
+				if !data['rates'][fromRate] || !data['rates'][toRate]
+					msg.send "No such currency: #{toRate}"
+				else
+					resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
+					msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
