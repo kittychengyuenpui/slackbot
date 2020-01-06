@@ -130,7 +130,9 @@ module.exports = (robot) ->
 				msg.send "Encountered an error :( #{err}"
 				return
 			data = JSON.parse(body)
-			if msg.match[2] == data.base
+			base = data.base
+			index = base.localeCompare msg.match[2]
+			if  index == 0
 				toRate = msg.match[3]
 				msg.send data['rates'][toRate]
 			else
