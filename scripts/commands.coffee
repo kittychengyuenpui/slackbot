@@ -114,7 +114,7 @@ module.exports = (robot) ->
 	
 	robot.respond /convert (.*) in (.*)/i, (msg) ->
 		try
-			result = mathjs.to(msg.match[2], msg.match[4])
+			result = mathjs.to(msg.match[1], msg.match[2])
 			msg.send "#{result}"
 		catch error
-			msg.send msg.match[2]
+			msg.send msg.match[1]
