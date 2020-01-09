@@ -3,4 +3,5 @@ node_modules
 .hubot_history
 commandsForWindows.txt
 package-lock.json
-config.json
+city.list.json
+
