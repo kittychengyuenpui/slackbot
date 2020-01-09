@@ -17,9 +17,9 @@ behave as expected unless the [environment variables](#configuration) they rely
 upon have been set.
 
 Starting slackbot2 locally by running:
-	```
+	
     HUBOT_SLACK_TOKEN=APP-TOKEN-GENERATED-BY-SLACK ./bin/hubot --adapter slack
-	```
+	
 You'll see some start up output and a prompt:
 
     [Sat Feb 28 2015 12:38:27 GMT+0000 (GMT)] INFO Using default redis on localhost:6379
@@ -47,7 +47,7 @@ Then you can interact with slackbot2 by typing `slackbot2 help`.
 	3. welcome.coffee
 
 ### external-scripts (hubot plugins)
-	```
+
 	hubot-diagnostics
 	hubot-help
 	hubot-heroku-keepalive
@@ -61,7 +61,6 @@ Then you can interact with slackbot2 by typing `slackbot2 help`.
 	hubot-env
 	hubot-auth
 	hubot-ascii-art
-	```
 
 ## Deployment
 
