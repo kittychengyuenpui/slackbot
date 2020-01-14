@@ -28,7 +28,6 @@ You'll see some start up output and a prompt:
 Then you can interact with slackbot2 by typing `slackbot2 help`.
 
     slackbot2> slackbot2 help
-    slackbot2 animate me <query> - The same thing as `image me`, except adds [snip]
     slackbot2 help - Displays all of the help commands that slackbot2 knows about.
     ...
 
@@ -52,7 +51,6 @@ Then you can interact with slackbot2 by typing `slackbot2 help`.
 	hubot-help
 	hubot-heroku-keepalive
 	hubot-google-images
-	hubot-google-translate
 	hubot-pugme
 	hubot-maps
 	hubot-redis-brain
