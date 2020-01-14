@@ -14,6 +14,8 @@
 #   HUBOT_ABSTRACT_API_URL - API endpoint of DuckDuckGo internet search engine to search abstract
 #   HUBOT_CURRENCY_API_KEY - API key to obtain currency rate from Fixer API
 #   HUBOT_CURRENCY_API_URL - API endpoint of Fixer
+#   HUBOT_HOLIDAY_API_KEY - API key to check holiday
+#   HUBOT_HOLIDAY_API_URL - API endpoint of Calendarific
 #
 # Commands:
 #   hubot hello - Say hello!
@@ -25,6 +27,7 @@
 #   hubot calc|calculate|calculator|math|maths [me] <expression> - Calculate the given math expression.
 #   hubot convert <expression> in <units> - Convert expression to given units.
 #   hubot cur | currency <currency 1> to <currency 2> - Get latest currency exchange rate from currency 1 to currency 2 (currency 1 as base)
+#   hubot holiday - Check if today is a holiday
 
 mathjs = require("mathjs")
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
@@ -79,7 +82,7 @@ module.exports = (robot) ->
 	robot.respond /(.*) think about (.*)/i, (msg) ->
 		getAdvice msg, msg.match[2]
 
-	robot.respond /advice/i, (msg) ->
+	robot.respond /(.*) advice (.*)/i, (msg) ->
 		randomAdvice msg
 	
 	robot.respond /(abs|abstract) (.*)/i, (res) ->
@@ -152,7 +155,7 @@ module.exports = (robot) ->
 					resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
 					msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
 					
-	robot.hear /today/i, (msg) ->
+	robot.hear /(.*) holiday (.*)/i, (msg) ->
 		url = process.env.HUBOT_HOLIDAY_API_URL
 		apiKey = process.env.HUBOT_HOLIDAY_API_KEY
 		now = new Date()
@@ -166,4 +169,5 @@ module.exports = (robot) ->
 				return
 			unless results.response.holidays.length 
 				msg.send "Today is not a holiday." 
-			msg.send "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}" 
+			else
+				msg.send "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}" 
