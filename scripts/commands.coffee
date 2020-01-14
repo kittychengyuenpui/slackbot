@@ -27,7 +27,6 @@
 #   hubot cur | currency <currency 1> to <currency 2> - Get latest currency exchange rate from currency 1 to currency 2 (currency 1 as base)
 
 mathjs = require("mathjs")
-cronJob = require("cron").CronJob
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
 getAdvice = (msg, query) ->
 	url2 = process.env.HUBOT_ADVICE_API_URL
@@ -153,7 +152,7 @@ module.exports = (robot) ->
 					resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
 					msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
 					
-	robot.hear /time/i, (msg) ->
+	robot.hear /today/i, (msg) ->
 		url = process.env.HUBOT_HOLIDAY_API_URL
 		apiKey = process.env.HUBOT_HOLIDAY_API_KEY
 		now = new Date()
@@ -165,4 +164,4 @@ module.exports = (robot) ->
 			if err  
 				msg.send "Encountered an error :( #{err}"
 				return
-			if results.response.holidays.name? then msg.send "Today is not a holiday." else msg.send("Today is #{results.response.holidays.name}") 
+			if results.response.holidays.name? then msg.send "Today is not a holiday." else msg.send "Today is #{results.response.holidays.name}" 
