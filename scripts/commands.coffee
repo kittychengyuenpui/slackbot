@@ -82,7 +82,7 @@ module.exports = (robot) ->
 	robot.respond /(.*) think about (.*)/i, (msg) ->
 		getAdvice msg, msg.match[2]
 
-	robot.respond /(.*) advice (.*)/i, (msg) ->
+	robot.respond /advice/i, (msg) ->
 		randomAdvice msg
 	
 	robot.respond /(abs|abstract) (.*)/i, (res) ->
@@ -155,7 +155,7 @@ module.exports = (robot) ->
 					resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
 					msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
 					
-	robot.hear /(.*) holiday (.*)/i, (msg) ->
+	robot.hear /holiday/i, (msg) ->
 		url = process.env.HUBOT_HOLIDAY_API_URL
 		apiKey = process.env.HUBOT_HOLIDAY_API_KEY
 		now = new Date()
