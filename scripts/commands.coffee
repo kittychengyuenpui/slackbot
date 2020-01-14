@@ -43,7 +43,10 @@ randomAdvice = (msg) ->
 		results = JSON.parse body
 		advice = if err then "You're on your own, bud" else results.slip.advice
 		msg.send advice	
-			
+
+everyMinute = (robot) ->
+  -> robot.messageRoom '#testing', 'hey brah!'
+  
 module.exports = (robot) ->
 	robot.hear /hello/i, (res) ->
 		res.send res.random welcomeMsg
@@ -171,3 +174,7 @@ module.exports = (robot) ->
 				msg.send "Today is not a holiday." 
 			else
 				msg.send "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}" 
+	
+	cronJob = require('cron').CronJob
+	new cronJob('0 */1 * * * *', everyMinute(robot), null, true)
+
