@@ -164,6 +164,6 @@ module.exports = (robot) ->
 			if err  
 				msg.send "Encountered an error :( #{err}"
 				return
-			unless results.response.holidays? 
+			unless results.response.holidays.length 
 				msg.send "Today is not a holiday." 
 			msg.send "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}" 
