@@ -153,7 +153,7 @@ module.exports = (robot) ->
 					resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
 					msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
 					
-	robot.hear /time/i, (res) ->
+	robot.hear /time/i, (msg) ->
 		url = process.env.HUBOT_HOLIDAY_API_URL
 		apiKey = process.env.HUBOT_HOLIDAY_API_KEY
 		now = new Date()
