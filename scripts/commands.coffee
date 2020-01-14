@@ -159,7 +159,7 @@ module.exports = (robot) ->
 		year = now.getFullYear()
 		month = now.getMonth() + 1
 		day = now.getDate()
-		msg.http(url +"&country=HK&" + "api_key=" + apiKey + "&year=" + year + "&month=" + month + "&day=" + day).get() (err, res, body) ->
+		msg.http(url + "&country=HK&" + "api_key=" + apiKey + "&year=" + year + "&month=" + month + "&day=" + day).get() (err, res, body) ->
 			results = JSON.parse body
 			if err  
 				msg.send "Encountered an error :( #{err}"
