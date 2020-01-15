@@ -55,7 +55,7 @@ everyDayCheckHoliday = (robot) ->
 				robot.messageRoom "#general", "Encountered an error :( #{err}"
 				return
 			unless results.response.holidays.length 
-				robot.messageRoom "#general", "Today is not a holiday." 
+				robot.messageRoom "#general", "Today is not a holiday. #{now}" 
 			else
 				robot.messageRoom "#general", "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}! :tada:"
 
@@ -189,5 +189,5 @@ module.exports = (robot) ->
 				msg.send "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}" 
 	
 	cronJob = require('cron').CronJob
-	new cronJob('00 */5 * * * *', everyDayCheckHoliday(robot), null, true, "Asia/Hong_Kong")
+	new cronJob('0 */5 * * * *', everyDayCheckHoliday(robot), null, true, "Asia/Hong_Kong")
 
