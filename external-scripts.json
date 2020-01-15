@@ -10,5 +10,6 @@
   "hubot-shipit",
   "hubot-env",
   "hubot-auth",
-  "hubot-ascii-art"
+  "hubot-ascii-art",
+  "hubot-brain-inspect"
 ]
