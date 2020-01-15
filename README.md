@@ -38,11 +38,23 @@ Then you can interact with slackbot2 by typing `slackbot2 help`.
 	3. It uses openWeatherMap API for weather information
 	4. It uses adviceslip API for advice
 	5. It uses fixer API for latest currency exchange rate
+	6. It uses holiday API to check holidays every day at 11am automatically
 
 ### Scripting
 
 	1. example.coffee
 	2. commands.coffee
+		Commands:
+			hubot hello - Say hello!
+			hubot !new members - Get a link of procedure for new members.
+			hubot weather in <location> - Tells about the weather(temp, humidity, wind) in given location
+			hubot what should I do about <something> | what do you think about <something> | how do you handle <something> - Get advice about <something>
+			hubot advice - Get random advice
+			hubot abs | abstract - Prints a nice abstract of the given topic
+		    hubot calc|calculate|calculator|math|maths [me] <expression> - Calculate the given math expression.
+		    hubot convert <expression> in <units> - Convert expression to given units.
+		    hubot cur | currency <currency 1> to <currency 2> - Get latest currency exchange rate from currency 1 to currency 2 (currency 1 as base)
+			... showing more by typing `slackbot2 help`
 	3. welcome.coffee
 
 ### external-scripts (hubot plugins)
