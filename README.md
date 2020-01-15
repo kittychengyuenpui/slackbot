@@ -1,4 +1,5 @@
 # slackbot2 
+<img src="https://a.slack-edge.com/80588/img/services/hubot_512.png" width="200">
 ![Hubot image on slack](https://a.slack-edge.com/80588/img/services/hubot_512.png){: style="height:50%; width:50%"}
 
 slackbot2 is a chat bot built on the [Hubot][hubot] framework and run on Slack. It was
