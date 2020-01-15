@@ -44,7 +44,11 @@ randomAdvice = (msg) ->
 		advice = if err then "You're on your own, bud" else results.slip.advice
 		msg.send advice	
 
-everyDayCheckHoliday = (robot, year, month, day) ->	
+everyDayCheckHoliday = (robot) ->	
+	now = new Date()
+	year = now.getFullYear()
+	month = now.getMonth() + 1
+	day = now.getDate()
 	robot.http(process.env.HUBOT_HOLIDAY_API_URL + "&country=HK&" + "api_key=" + process.env.HUBOT_HOLIDAY_API_KEY + "&year=" + year + "&month=" + month + "&day=" + day).get() (err, res, body) -> 
 			results = JSON.parse body
 			if err  
@@ -185,9 +189,5 @@ module.exports = (robot) ->
 				msg.send "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}" 
 	
 	cronJob = require('cron').CronJob
-	now = new Date()
-	year = now.getFullYear()
-	month = now.getMonth() + 1
-	day = now.getDate()
-	new cronJob('00 00 10 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
+	new cronJob('00 00 10 * * *', everyDayCheckHoliday(robot), null, true, "Asia/Hong_Kong")
 
