@@ -27,7 +27,6 @@
 #   hubot calc|calculate|calculator|math|maths [me] <expression> - Calculate the given math expression.
 #   hubot convert <expression> in <units> - Convert expression to given units.
 #   hubot cur | currency <currency 1> to <currency 2> - Get latest currency exchange rate from currency 1 to currency 2 (currency 1 as base)
-#   hubot holiday - Check if today is a holiday
 
 mathjs = require("mathjs")
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
@@ -166,23 +165,6 @@ module.exports = (robot) ->
 				else
 					resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
 					msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
-					
-	robot.hear /holiday/i, (msg) ->
-		url = process.env.HUBOT_HOLIDAY_API_URL
-		apiKey = process.env.HUBOT_HOLIDAY_API_KEY
-		now = new Date()
-		year = now.getFullYear()
-		month = now.getMonth() + 1
-		day = now.getDate()
-		msg.http(url + "&country=HK&" + "api_key=" + apiKey + "&year=" + year + "&month=" + month + "&day=" + day).get() (err, res, body) ->
-			results = JSON.parse body
-			if err  
-				msg.send "Encountered an error :( #{err}"
-				return
-			unless results.response.holidays.length 
-				msg.send "Today is not a holiday." 
-			else
-				msg.send "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}" 
 	
 	cronJob = require('cron').CronJob
 	now = new Date()
