@@ -182,15 +182,3 @@ module.exports = (robot) ->
 	month = now.getMonth() + 1
 	day = now.getDate()
 	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
-
-	WebClient = require "@slack/client"
-	web = new WebClient process.env.HUBOT_SLACK_TOKEN
-
-	robot.react (res) ->
-		# res.message is a ReactionMessage instance that represents the reaction Hubot just heard
-		if res.message.type == "added" and res.message.item.type == "message"
-			# res.messsage.reaction is the emoji alias for the reaction Hubot just heard
-			web.reactions.add
-				name: res.message.reaction,
-				channel: res.message.item.channel,
-				timestamp: res.message.item.ts
