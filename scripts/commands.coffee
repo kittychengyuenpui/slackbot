@@ -57,12 +57,15 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 {WebClient} = require "@slack/client"
   
 module.exports = (robot) ->
+	#   hello/hubot hello - Say hello!
 	robot.hear /hello/i, (res) ->
 		res.send res.random welcomeMsg
-		
+	
+	#   !new members/hubot !new members - Get a link of procedure for new members.
 	robot.hear /!new members/i, (res) ->
 		res.send process.env.HUBOT_NEW_MEMBERS_URL
 	
+	#   weather in <location>/hubot weather in <location> - Get weather information(including temperature, humidity, wind) in given location
 	robot.hear /weather in (.*)/i, (msg) ->
 		city = msg.match[1]
 		url = process.env.HUBOT_WEATHER_API_URL
@@ -81,7 +84,8 @@ module.exports = (robot) ->
 			for w in data.weather
 				weather.push w.description
 			msg.reply "It's #{weather.join(', ')} in #{data.name}, #{data.sys.country}"
-			
+	
+	#   hubot what should I do about <something> | what do you think about <something> | how do you handle <something> - Get advice about <something>
 	robot.respond /what (do you|should I) do (when|about) (.*)/i, (msg) ->
 		getAdvice msg, msg.match[3]
 
@@ -94,9 +98,11 @@ module.exports = (robot) ->
 	robot.respond /(.*) think about (.*)/i, (msg) ->
 		getAdvice msg, msg.match[2]
 
+	#   hubot advice - Get random advice
 	robot.respond /advice/i, (msg) ->
 		randomAdvice msg
 	
+	#   hubot abs | abstract - Prints a nice abstract of the given topic
 	robot.respond /(abs|abstract) (.*)/i, (res) ->
 		url3 = process.env.HUBOT_ABSTRACT_API_URL
 		abstract_url = url3 + res.match[2]
@@ -123,6 +129,7 @@ module.exports = (robot) ->
 			else
 				res.send "I don't know anything about that."
 
+	#   hubot calc|calculate|calculator|math|maths [me] <expression> - Calculate the given math expression.
 	robot.respond /(calc|calculate|calculator|math|maths)( me)? (.*)/i, (msg) ->
 		try
 			result = mathjs.evaluate msg.match[3]
@@ -133,13 +140,15 @@ module.exports = (robot) ->
 		catch error
 			msg.send error.message || 'Could not compute.'
 	
+	#   hubot convert <expression> in <units> - Convert expression to given units.
 	robot.respond /convert (.*) in (.*)/i, (msg) ->
 		try
 			result = mathjs.to(mathjs.unit(msg.match[1]), msg.match[2])
 			msg.send "#{result}"
 		catch error
 			msg.send error.message || 'Could not compute.'
-			
+	
+	#   hubot cur | currency <currency 1> to <currency 2> - Get the latest currency exchange rate from currency 1 to currency 2 (currency 1 as base)	
 	robot.respond /(cur|currency) (.*) to (.*)/i, (msg) ->
 		url4 = process.env.HUBOT_CURRENCY_API_URL
 		apiKey = process.env.HUBOT_CURRENCY_API_KEY
@@ -167,6 +176,7 @@ module.exports = (robot) ->
 					resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
 					msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
 	
+	#	Auto-check if today is a holiday using Holiday API at 11am every day
 	cronJob = require('cron').CronJob
 	now = new Date()
 	year = now.getFullYear()
@@ -174,3 +184,13 @@ module.exports = (robot) ->
 	day = now.getDate()
 	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 
+	{WebClient} = require "@slack/client"
+	web = new WebClient process.env.HUBOT_SLACK_TOKEN
+	robot.hearReaction (res) ->
+		# res.message is a ReactionMessage instance that represents the reaction Hubot just heard
+		if res.message.type == "added" and res.message.item.type == "message"
+			# res.messsage.reaction is the emoji alias for the reaction Hubot just heard
+			web.reactions.add
+				name: res.message.reaction,
+				channel: res.message.item.channel,
+				timestamp: res.message.item.ts
