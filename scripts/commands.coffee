@@ -185,7 +185,7 @@ module.exports = (robot) ->
 	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 
 	web = new WebClient process.env.HUBOT_SLACK_TOKEN
-	robot.hearReaction (res) ->
+	robot.react (res) ->
 		# res.message is a ReactionMessage instance that represents the reaction Hubot just heard
 		if res.message.type == "added" and res.message.item.type == "message"
 			# res.messsage.reaction is the emoji alias for the reaction Hubot just heard
