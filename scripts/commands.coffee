@@ -184,7 +184,6 @@ module.exports = (robot) ->
 	day = now.getDate()
 	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 
-	{WebClient} = require "@slack/client"
 	web = new WebClient process.env.HUBOT_SLACK_TOKEN
 	robot.hearReaction (res) ->
 		# res.message is a ReactionMessage instance that represents the reaction Hubot just heard
