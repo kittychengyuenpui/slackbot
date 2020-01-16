@@ -46,7 +46,7 @@ Then you can interact with slackbot2 by typing `slackbot2 help`.
 	2. commands.coffee
 	3. welcome.coffee
 	
-Custom commands in commands.coffee:
+###### Custom commands in commands.coffee:
 
 Hubot Commands | Explanation
 -------------- | -----------
@@ -62,7 +62,7 @@ hubot cur/currency `<currency 1>` to `<currency 2>` | Get the latest currency ex
 
 * View other (build-in) commands by typing `slackbot2 help`	
 
-### external-scripts (hubot plugins)
+###### external-scripts (hubot plugins)
 
 	hubot-diagnostics
 	hubot-help
@@ -76,6 +76,7 @@ hubot cur/currency `<currency 1>` to `<currency 2>` | Get the latest currency ex
 	hubot-env
 	hubot-auth
 	hubot-ascii-art
+	hubot-brain-inspect
 
 ## Deployment
 

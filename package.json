@@ -29,7 +29,8 @@
     "hubot-slack": "^4.7.1",
     "mathjs": "^6.3.0",
     "minimatch": "^3.0.4",
-    "underscore": "^1.9.1"
+    "underscore": "^1.9.1",
+	"@slack/client": "^3.16.0"
   },
   "engines": {
     "node": "4.x"

@@ -54,6 +54,7 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 			else
 				robot.messageRoom "#general", "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}! :tada:"
 
+{WebClient} = require "@slack/client"
   
 module.exports = (robot) ->
 	robot.hear /hello/i, (res) ->
