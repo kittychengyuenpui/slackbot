@@ -54,7 +54,6 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 			else
 				robot.messageRoom "#general", "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}! :tada:"
 
-{WebClient} = require "@slack/client"  
 module.exports = (robot) ->
 	#   hello/hubot hello - Say hello!
 	robot.hear /hello/i, (res) ->
@@ -185,10 +184,6 @@ module.exports = (robot) ->
 	
 	
 	if robot.adapter.options && robot.adapter.options.token
-        web = new WebClient robot.adapter.options.token
 		robot.react (res) ->
 			if res.message.type == "added" and res.message.item.type == "message"
-				web.reactions.add
-					name: "#{res.message.reaction}",
-					channel: "#{res.message.item.channel}",
-					timestamp: "#{res.message.item.ts}"
+				res.send "#{res.message.reaction}"
