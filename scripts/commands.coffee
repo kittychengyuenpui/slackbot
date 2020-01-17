@@ -66,11 +66,9 @@ getNews = (msg, query) ->
 		if results.totalResult == 0 
 			msg.send "No result"
 		else
-			msg.send(msg.random(results.articles).title)
-			msg.send(msg.random(results.articles).description)
 			msg.send(msg.random(results.articles).url)
-			msg.send(msg.random(results.articles).urlToImage)
-			msg.send(msg.random(results.articles).publishedAt.split('T')[0] + "Powered by News API") 
+			msg.send("Published at: #{msg.random(results.articles).publishedAt.split('T')[0]}")
+			msg.send("Powered by News API")
 
 module.exports = (robot) ->
 	#   hello/hubot hello - Say hello!
