@@ -66,6 +66,8 @@ getNews = (msg, query) ->
 		if results.totalResult == 0 
 			msg.send "No result"
 		else
+			msg.send(msg.random(results.articles).title)
+			msg.send(msg.random(results.articles).description)
 			msg.send(msg.random(results.articles).url)
 			msg.send("Published at: #{msg.random(results.articles).publishedAt.split('T')[0]}")
 			msg.send("Powered by News API")
