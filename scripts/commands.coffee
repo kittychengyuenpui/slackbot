@@ -65,7 +65,7 @@ getNews = (msg, query) ->
 			msg.send "Encountered an error :( #{err}"
 			return
 		results = JSON.parse body
-		if results.totalResult == 0 
+		if results.totalResults == 0 
 			msg.send "No result"
 		else
 			msg.send(msg.random(results.articles).title)
