@@ -53,6 +53,24 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 				robot.messageRoom "#general", "Today is not a holiday." 
 			else
 				robot.messageRoom "#general", "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}! :tada:"
+				getNews robot, results.response.holidays.name
+
+getNews = (msg, query) ->
+	url = process.env.HUBOT_NEWS_API_URL
+	apiKey = process.env.HUBOT_NEWS_API_KEY
+	msg.http(url + "top-headlines?country=hk&apiKey=" + apiKey + "&q=" + query).get() (err, res, body) -> 
+		if err
+			msg.send "Encountered an error :( #{err}"
+			return
+		results = JSON.parse body
+		if results.totalResult == 0 
+			msg.send "No result"
+		else
+			msg.send(msg.random(results.articles).title)
+			msg.send(msg.random(results.articles).description)
+			msg.send(msg.random(results.articles).url)
+			msg.send(msg.random(results.articles).urlToImage)
+			msg.send(msg.random(results.articles).publishedAt.split('T')[0] + "Powered by News API") 
 
 module.exports = (robot) ->
 	#   hello/hubot hello - Say hello!
@@ -182,6 +200,10 @@ module.exports = (robot) ->
 	day = now.getDate()
 	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 	
+	#	Respond with the same emoji reaction when a emoji reaction is added
 	robot.hearReaction (res) ->
 		if res.message.type == "added" and res.message.item.type == "message"
 			res.send ":#{res.message.reaction}:"
+			
+	robot.hear /news/i, (res) ->
+		getNews res, "Instagram"
