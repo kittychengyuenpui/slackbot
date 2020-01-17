@@ -39,6 +39,7 @@ Then you can interact with slackbot2 by typing `slackbot2 help`.
 	4. It uses adviceslip API for advice
 	5. It uses fixer API for the latest currency exchange rate
 	6. It uses holiday API to check holidays every day at 11am automatically
+	7. It uses news API to search for the latest news
 
 ### Scripting
 
@@ -59,6 +60,7 @@ hubot abs/abstract | Prints a nice abstract of the given topic
 hubot calc/calculate/calculator/math/maths [me] `<expression>` | Calculate the given math expression
 hubot convert `<expression>` in `<units>` | Convert expression to given units
 hubot cur/currency `<currency 1>` to `<currency 2>` | Get the latest currency exchange rate from currency 1 to currency 2 (currency 1 as base)
+hubot news `<query>` - search the latest news of the `<query>`
 
 * View other (build-in) commands by typing `slackbot2 help`	
 
