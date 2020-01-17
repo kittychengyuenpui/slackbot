@@ -183,12 +183,12 @@ module.exports = (robot) ->
 	day = now.getDate()
 	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 	
-	WebClient = require("@slack/client")
+	{WebClient} = require "@slack/client"
 	if robot.adapter.options && robot.adapter.options.token
-        web = new WebClient(robot.adapter.options.token)
+        web = new WebClient robot.adapter.options.token
 	robot.react (res) ->
 		if res.message.type == "added" and res.message.item.type == "message"
 			web.reactions.add
-				name: res.message.reaction,
-				channel: res.message.item.channel,
-				timestamp: res.message.item.ts
+				name: "#{res.message.reaction}",
+				channel: "#{res.message.item.channel}",
+				timestamp: "#{res.message.item.ts}"
