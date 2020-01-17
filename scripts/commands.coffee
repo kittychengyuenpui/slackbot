@@ -16,6 +16,8 @@
 #   HUBOT_CURRENCY_API_URL - API endpoint of Fixer
 #   HUBOT_HOLIDAY_API_KEY - API key to check holiday
 #   HUBOT_HOLIDAY_API_URL - API endpoint of Calendarific
+#   HUBOT_NEWS_API_KEY - API key to search latest news if today is a holiday
+#   HUBOT_NEWS_API_URL - endpoint of News API
 #
 # Commands:
 #   hubot hello - Say hello!
@@ -204,6 +206,6 @@ module.exports = (robot) ->
 	robot.hearReaction (res) ->
 		if res.message.type == "added" and res.message.item.type == "message"
 			res.send ":#{res.message.reaction}:"
-			
-	robot.hear /news/i, (res) ->
-		getNews res, "Instagram"
+	
+	robot.respond /news (.*)/i, (msg) -> 
+		msg.send(msg.match[1])
