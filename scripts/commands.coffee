@@ -182,8 +182,6 @@ module.exports = (robot) ->
 	day = now.getDate()
 	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 	
-	
-	if robot.adapter.options && robot.adapter.options.token
-		robot.react (res) ->
-			if res.message.type == "added" and res.message.item.type == "message"
-				res.send "#{res.message.reaction}"
+	robot.hearReaction (res) ->
+		if res.message.type == "added" and res.message.item.type == "message"
+			res.send ":#{res.message.reaction}:"
