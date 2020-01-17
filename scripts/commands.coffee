@@ -29,6 +29,7 @@
 #   hubot calc|calculate|calculator|math|maths [me] <expression> - Calculate the given math expression.
 #   hubot convert <expression> in <units> - Convert expression to given units.
 #   hubot cur | currency <currency 1> to <currency 2> - Get the latest currency exchange rate from currency 1 to currency 2 (currency 1 as base)
+#   hubot news <query> - search the latest news of the query
 
 mathjs = require("mathjs")
 welcomeMsg = ['Hello World!', 'Hello!', 'Hi~', 'Hey there']
@@ -207,5 +208,6 @@ module.exports = (robot) ->
 		if res.message.type == "added" and res.message.item.type == "message"
 			res.send ":#{res.message.reaction}:"
 	
+	#   hubot news <query> - search the latest news of the query
 	robot.respond /news (.*)/i, (msg) -> 
 		getNews msg, msg.match[1]
