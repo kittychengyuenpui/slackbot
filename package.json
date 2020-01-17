@@ -5,7 +5,9 @@
   "author": "chengyuenpui1234@gmail.com",
   "description": "chatbot in slack",
   "dependencies": {
+    "@slack/client": "^5.0.2",
     "child_process": "^1.0.2",
+    "coffee-script": "^1.12.7",
     "cron": "^1.7.2",
     "http": "0.0.0",
     "hubot": "^3.3.2",
@@ -29,8 +31,7 @@
     "hubot-slack": "^4.7.1",
     "mathjs": "^6.3.0",
     "minimatch": "^3.0.4",
-    "underscore": "^1.9.1",
-    "@slack/client": "^5.0.2"
+    "underscore": "^1.9.1"
   },
   "engines": {
     "node": "4.x"
