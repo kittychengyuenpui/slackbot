@@ -208,4 +208,4 @@ module.exports = (robot) ->
 			res.send ":#{res.message.reaction}:"
 	
 	robot.respond /news (.*)/i, (msg) -> 
-		msg.send(msg.match[1])
+		getNews msg, msg.match[1]
