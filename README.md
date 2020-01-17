@@ -37,7 +37,7 @@ Then you can interact with slackbot2 by typing `slackbot2 help`.
 	2. It wakes at 09:30 and sleeps at 23:00 (managed by heroku scheduler add-on)
 	3. It uses openWeatherMap API for weather information
 	4. It uses adviceslip API for advice
-	5. It uses fixer API for latest currency exchange rate
+	5. It uses fixer API for the latest currency exchange rate
 	6. It uses holiday API to check holidays every day at 11am automatically
 
 ### Scripting
@@ -82,6 +82,7 @@ hubot cur/currency `<currency 1>` to `<currency 2>` | Get the latest currency ex
 
 	1. Deployed on Heroku
 	2. App Name: slackbot2-1661
+	3. Add-ons: Heroku Scheduler and Redis Cloud
 
 ## Restart the bot
 

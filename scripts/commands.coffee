@@ -175,10 +175,16 @@ module.exports = (robot) ->
 					resultRate = 1 / data['rates'][fromRate] * data['rates'][toRate]
 					msg.send "1 #{msg.match[2]} :  #{resultRate} #{msg.match[3]}"
 	
-	#	Auto-check if today is a holiday using Holiday API at 11am every day
+	#	Auto-check to see if today is a holiday using Holiday API at 11am every day
 	cronJob = require('cron').CronJob
 	now = new Date()
 	year = now.getFullYear()
 	month = now.getMonth() + 1
 	day = now.getDate()
 	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
+	
+	robot.listen(
+		(message) -> message.type == "added",
+		(res) -> 
+			robot.send res.message.text
+	)
