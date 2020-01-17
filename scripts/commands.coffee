@@ -70,7 +70,7 @@ getNews = (msg, query) ->
 			msg.send(msg.random(results.articles).description)
 			msg.send(msg.random(results.articles).url)
 			msg.send("Published at: #{msg.random(results.articles).publishedAt.split('T')[0]}")
-			msg.send("Powered by News API")
+			msg.send("Powered by <https://newsapi.org|News API> ")
 
 module.exports = (robot) ->
 	#   hello/hubot hello - Say hello!
