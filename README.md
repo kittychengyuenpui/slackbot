@@ -60,7 +60,7 @@ hubot abs/abstract | Prints a nice abstract of the given topic
 hubot calc/calculate/calculator/math/maths [me] `<expression>` | Calculate the given math expression
 hubot convert `<expression>` in `<units>` | Convert expression to given units
 hubot cur/currency `<currency 1>` to `<currency 2>` | Get the latest currency exchange rate from currency 1 to currency 2 (currency 1 as base)
-hubot news `<query>` - search the latest news of the `<query>`
+hubot news `<query>` | Search the latest news of the `<query>`
 
 * View other (build-in) commands by typing `slackbot2 help`	
 
