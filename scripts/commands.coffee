@@ -201,9 +201,7 @@ module.exports = (robot) ->
 	year = now.getFullYear()
 	month = now.getMonth() + 1
 	day = now.getDate()
-	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
-	robot.hear /holiday/i, (res) ->
-		everyDayCheckHoliday(res, year, month, day)
+	new cronJob('0 0 17 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 	
 	#	Respond with the same emoji reaction when a emoji reaction is added
 	robot.hearReaction (res) ->
