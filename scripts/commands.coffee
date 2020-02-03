@@ -55,8 +55,8 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 			unless results.response.holidays.length 
 				robot.messageRoom "#general", "Today is not a holiday." 
 			else
-				robot.messageRoom "#general", "Today is #{year}-#{month}-#{day} #{results.response.holidays.name}! :tada:"
-				getNews robot, results.response.holidays.name
+				robot.messageRoom "#general", "Today is #{year}-#{month}-#{day} #{results.response.holidays[0].name}! :tada:"
+				getNews robot, results.response.holidays[0].name
 
 getNews = (msg, query) ->
 	url = process.env.HUBOT_NEWS_API_URL
