@@ -47,7 +47,7 @@ randomAdvice = (msg) ->
 		msg.send advice	
 
 everyDayCheckHoliday = (robot, year, month, day) ->	
-	->	robot.http(process.env.HUBOT_HOLIDAY_API_URL + "&country=HK&" + "api_key=" + process.env.HUBOT_HOLIDAY_API_KEY + "&year=" + year + "&month=" + month + "&day=" + day).get() (err, res, body) -> 
+	->	robot.http(process.env.HUBOT_HOLIDAY_API_URL + "api_key=" + process.env.HUBOT_HOLIDAY_API_KEY + "&country=HK&year=" + year + "&month=" + month + "&day=" + day).get() (err, res, body) -> 
 			results = JSON.parse body
 			if err  
 				robot.messageRoom "#general", "Encountered an error :( #{err}"
@@ -57,6 +57,7 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 			else
 				robot.messageRoom "#general", "Today is #{year}-#{month}-#{day} #{results.response.holidays[0].name}! :tada:"
 				getNews robot, results.response.holidays[0].name
+
 
 getNews = (msg, query) ->
 	url = process.env.HUBOT_NEWS_API_URL
