@@ -72,7 +72,7 @@ getNews = (msg, query) ->
 		else
 			randNum = Math.floor(Math.random() * ((results.totalResults - 1) - 0) + 0)
 			msg.send(results.articles[randNum].url)
-			msg.send("Published at: #{results.articles[randNum].publishedAt}") # .split('T')[0]
+			msg.send("Published at: #{results.articles[randNum].publishedAt.split('T')[0]}") 
 			msg.send("Powered by <https://newsapi.org|News API> ")
 
 module.exports = (robot) ->
@@ -201,7 +201,7 @@ module.exports = (robot) ->
 	year = now.getFullYear()
 	month = now.getMonth() + 1
 	day = now.getDate()
-	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
+	new cronJob('0 30 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 	
 	#	Respond with the same emoji reaction when a emoji reaction is added
 	robot.hearReaction (res) ->
