@@ -58,7 +58,7 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 				robot.messageRoom "#general", "Today is #{year}-#{month}-#{day} #{results.response.holidays[0].name}! :tada:"
 				url = process.env.HUBOT_NEWS_API_URL
 				apiKey = process.env.HUBOT_NEWS_API_KEY
-				robot.http(url + "top-headlines?country=hk&apiKey=" + apiKey + "&q=" + query).get() (err, res, body) -> 
+				robot.http(url + "top-headlines?country=hk&apiKey=" + apiKey + "&q=" + result.response.holidays[0].name).get() (err, res, body) -> 
 					if err
 						robot.messageRoom "#general", "Encountered an error :( #{err}"
 						return
@@ -70,7 +70,7 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 						robot.messageRoom "#general", results.articles[randNum].url
 						robot.messageRoom "#general", "Published at: #{results.articles[randNum].publishedAt.split('T')[0]}" 
 						robot.messageRoom "#general", "Powered by <https://newsapi.org|News API> "
-
+				#getNews2 robot, "#general", results.response.holidays[0].name
 
 getNews = (msg, query) ->
 	url = process.env.HUBOT_NEWS_API_URL
@@ -87,6 +87,20 @@ getNews = (msg, query) ->
 			msg.send(results.articles[randNum].url)
 			msg.send("Published at: #{results.articles[randNum].publishedAt.split('T')[0]}") 
 			msg.send("Powered by <https://newsapi.org|News API> ")
+
+getNews2 = (robot, msgRoom, query) ->
+	robot.http(url + "top-headlines?country=hk&apiKey=" + apiKey + "&q=" + query).get() (err, res, body) -> 
+		if err
+			robot.messageRoom msgRoom, "Encountered an error :( #{err}"
+			return
+		results = JSON.parse body
+		if results.totalResults == 0 
+			robot.messageRoom msgRoom, "No result"
+		else
+			randNum = Math.floor(Math.random() * ((results.totalResults - 1) - 0) + 0)
+						robot.messageRoom msgRoom, results.articles[randNum].url
+						robot.messageRoom msgRoom, "Published at: #{results.articles[randNum].publishedAt.split('T')[0]}" 
+						robot.messageRoom msgRoom, "Powered by <https://newsapi.org|News API> "
 
 module.exports = (robot) ->
 	#   hello/hubot hello - Say hello!
@@ -214,7 +228,7 @@ module.exports = (robot) ->
 	year = now.getFullYear()
 	month = now.getMonth() + 1
 	day = now.getDate()
-	new cronJob('0 30 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
+	new cronJob('0 41 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 	
 	#	Respond with the same emoji reaction when a emoji reaction is added
 	robot.hearReaction (res) ->
