@@ -64,7 +64,7 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 						return
 					results2 = JSON.parse body
 					if results2.totalResults == 0 
-						robot.messageRoom "#general", "No result"
+						robot.messageRoom "#general", "No news result for #{results.response.holidays[0].name}."
 					else
 						randNum = Math.floor(Math.random() * ((results2.totalResults - 1) - 0) + 0)
 						robot.messageRoom "#general", results2.articles[randNum].url
@@ -214,7 +214,7 @@ module.exports = (robot) ->
 	year = now.getFullYear()
 	month = now.getMonth() + 1
 	day = now.getDate()
-	new cronJob('0 10 12 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
+	new cronJob('0 0 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 	
 	#	Respond with the same emoji reaction when a emoji reaction is added
 	robot.hearReaction (res) ->
