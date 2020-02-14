@@ -70,7 +70,6 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 						robot.messageRoom "#general", results2.articles[randNum].url
 						robot.messageRoom "#general", "Published at: #{results2.articles[randNum].publishedAt.split('T')[0]}" 
 						robot.messageRoom "#general", "Powered by <https://newsapi.org|News API> "
-				#getNews2 robot, "#general", results.response.holidays[0].name
 
 getNews = (msg, query) ->
 	url = process.env.HUBOT_NEWS_API_URL
