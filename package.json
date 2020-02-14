@@ -9,6 +9,7 @@
     "child_process": "^1.0.2",
     "coffee-script": "^1.12.7",
     "cron": "^1.7.2",
+    "date-fns-tz": "^1.0.9",
     "http": "0.0.0",
     "hubot": "^3.3.2",
     "hubot-ascii-art": "^1.1.3",

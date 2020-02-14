@@ -70,8 +70,9 @@ getNews = (msg, query) ->
 		if results.totalResults == 0 
 			msg.send "No result"
 		else
-			msg.send(msg.random(results.articles).url)
-			msg.send("Published at: #{msg.random(results.articles).publishedAt.split('T')[0]}")
+			randNum = Math.floor(Math.random() * ((results.totalResults - 1) - 0) + 0)
+			msg.send(results.articles[randNum].url)
+			msg.send("Published at: #{results.articles[randNum].publishedAt}") # .split('T')[0]
 			msg.send("Powered by <https://newsapi.org|News API> ")
 
 module.exports = (robot) ->
