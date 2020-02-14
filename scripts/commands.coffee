@@ -56,7 +56,20 @@ everyDayCheckHoliday = (robot, year, month, day) ->
 				robot.messageRoom "#general", "Today is not a holiday." 
 			else
 				robot.messageRoom "#general", "Today is #{year}-#{month}-#{day} #{results.response.holidays[0].name}! :tada:"
-				getNews robot, results.response.holidays[0].name
+				url = process.env.HUBOT_NEWS_API_URL
+				apiKey = process.env.HUBOT_NEWS_API_KEY
+				robot.http(url + "top-headlines?country=hk&apiKey=" + apiKey + "&q=" + query).get() (err, res, body) -> 
+					if err
+						robot.messageRoom "#general", "Encountered an error :( #{err}"
+						return
+					results = JSON.parse body
+					if results.totalResults == 0 
+						robot.messageRoom "#general", "No result"
+					else
+						randNum = Math.floor(Math.random() * ((results.totalResults - 1) - 0) + 0)
+						robot.messageRoom "#general", results.articles[randNum].url
+						robot.messageRoom "#general", "Published at: #{results.articles[randNum].publishedAt.split('T')[0]}" 
+						robot.messageRoom "#general", "Powered by <https://newsapi.org|News API> "
 
 
 getNews = (msg, query) ->
@@ -201,7 +214,7 @@ module.exports = (robot) ->
 	year = now.getFullYear()
 	month = now.getMonth() + 1
 	day = now.getDate()
-	new cronJob('0 26 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
+	new cronJob('0 30 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 	
 	#	Respond with the same emoji reaction when a emoji reaction is added
 	robot.hearReaction (res) ->
