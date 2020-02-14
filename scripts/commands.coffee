@@ -88,19 +88,6 @@ getNews = (msg, query) ->
 			msg.send("Published at: #{results.articles[randNum].publishedAt.split('T')[0]}") 
 			msg.send("Powered by <https://newsapi.org|News API> ")
 
-getNews2 = (robot, msgRoom, query) ->
-	robot.http(url + "top-headlines?country=hk&apiKey=" + apiKey + "&q=" + query).get() (err, res, body) -> 
-		if err
-			robot.messageRoom msgRoom, "Encountered an error :( #{err}"
-			return
-		results = JSON.parse body
-		if results.totalResults == 0 
-			robot.messageRoom msgRoom, "No result"
-		else
-			randNum = Math.floor(Math.random() * ((results.totalResults - 1) - 0) + 0)
-						robot.messageRoom msgRoom, results.articles[randNum].url
-						robot.messageRoom msgRoom, "Published at: #{results.articles[randNum].publishedAt.split('T')[0]}" 
-						robot.messageRoom msgRoom, "Powered by <https://newsapi.org|News API> "
 
 module.exports = (robot) ->
 	#   hello/hubot hello - Say hello!
@@ -228,7 +215,7 @@ module.exports = (robot) ->
 	year = now.getFullYear()
 	month = now.getMonth() + 1
 	day = now.getDate()
-	new cronJob('0 41 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
+	new cronJob('0 43 11 * * *', everyDayCheckHoliday(robot, year, month, day), null, true, "Asia/Hong_Kong")
 	
 	#	Respond with the same emoji reaction when a emoji reaction is added
 	robot.hearReaction (res) ->
